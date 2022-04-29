@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  couchserver:
+    image: couchdb
+    restart: always
+    ports:
+      - "5984:5984"
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=YOURPASSWORD
+    volumes:
+        - ./dbdata:/opt/couchdb/data
+  testcouchdb:
+    image: ${DOCKER_REGISTRY-}testcouchdb
+    build:
+      context: .
+      dockerfile: Dockerfile
